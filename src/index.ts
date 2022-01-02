@@ -1,4 +1,5 @@
 import './player'
+import './board'
 
 const keyDown = (e: { code: string }) => {
     if( e.code === 'ArrowUp' || e.code === 'ArrowDown' || e.code === 'ArrowLeft' || e.code === 'ArrowRight') {
@@ -24,6 +25,7 @@ document.querySelector('body').appendChild(newPlayer)
 const player = document.querySelector( '.player' );
 
 
+//TODO #2:
 function movement(item: any, arrowCode: string): void {
     let element = item.getBoundingClientRect();
     let x,y;
@@ -59,5 +61,23 @@ function movement(item: any, arrowCode: string): void {
 
     console.log(x,y)
 }
+function makeSquares() {
+    console.log( window.innerWidth, window.innerHeight);
+
+    let boundaries =  (window.innerWidth / 16) * (window.innerHeight / 16);
+    for( let i = 0; i < boundaries; i++ ) {
+        // console.log(i)
+        let bod = document.querySelector( 'body' );
+        let square = document.createElement( 'div' );
+        square.classList.add( 'square')
+        if (!bod) return;
+        bod.appendChild( square );
+    }
+
+
+}
 
 document.addEventListener( 'keydown', keyDown, false);
+window.addEventListener( 'load', () => {
+    makeSquares()
+})
