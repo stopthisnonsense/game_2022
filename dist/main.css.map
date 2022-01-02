@@ -1,0 +1,1 @@
+{"version":3,"file":"main.css","mappings":"AAAA,QACC,kBACA,gBACA,WACA,Y","sources":["webpack:///./src/player/player.scss"],"sourcesContent":[".player {\r\n\tposition: absolute;\r\n\tbackground: black;\r\n\twidth: 16px;\r\n\theight: 16px;\r\n}\r\n"],"names":[],"sourceRoot":""}
