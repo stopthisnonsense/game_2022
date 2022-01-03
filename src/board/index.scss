@@ -5,3 +5,8 @@
 	width: 16px;
 	height: 16px;
 }
+
+.gameboard {
+	width: #{16px * 16};
+	height: #{16px * 16};
+}

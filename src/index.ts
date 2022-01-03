@@ -20,7 +20,7 @@ const keyDown = (e: { code: string }) => {
 const newPlayer = document.createElement( 'div' )
 newPlayer.classList.add('player')
 
-document.querySelector('body').appendChild(newPlayer)
+document.querySelector('.gameboard').appendChild(newPlayer)
 
 const player = document.querySelector( '.player' );
 
@@ -29,6 +29,8 @@ const player = document.querySelector( '.player' );
 function movement(item: any, arrowCode: string): void {
     let element = item.getBoundingClientRect();
     let x,y;
+    let bod = document.querySelector( '.gameboard' );
+    let bodSize = bod.getBoundingClientRect();
     if( element && x == undefined && y == undefined ) {
         x = element.left
         y = element.top
@@ -52,22 +54,29 @@ function movement(item: any, arrowCode: string): void {
         return;
     }
     if( arrowCode === 'ArrowRight' || arrowCode === 'ArrowLeft' ) {
-        item.style.left = `${x}px`
+        if( x < bodSize.width ) {
+            item.style.left = `${x}px`
+        }
+
     }
 
     if( arrowCode === 'ArrowDown' || arrowCode === 'ArrowUp' ) {
-        item.style.top = `${y}px`
+        if( y < bodSize.height ) {
+            item.style.top = `${y}px`
+        }
+
     }
 
     console.log(x,y)
 }
 function makeSquares() {
     console.log( window.innerWidth, window.innerHeight);
-
-    let boundaries =  (window.innerWidth / 16) * (window.innerHeight / 16);
+    let bod = document.querySelector( 'body' );
+    let bodSize = bod.getBoundingClientRect()
+    let boundaries =  16 * 16;
     for( let i = 0; i < boundaries; i++ ) {
         // console.log(i)
-        let bod = document.querySelector( 'body' );
+        let bod = document.querySelector( '.gameboard' );
         let square = document.createElement( 'div' );
         square.classList.add( 'square')
         if (!bod) return;
