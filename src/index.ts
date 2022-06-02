@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 import './player';
 import './board';
+import { render } from 'sass';
 
 // init
 
@@ -37,21 +38,41 @@ function animation(time: number) {
 	renderer.render(scene, camera);
 }
 
-// const keyDown = (e: { code: string }) => {
-// 	if (
-// 		e.code === 'ArrowUp' ||
-// 		e.code === 'ArrowDown' ||
-// 		e.code === 'ArrowLeft' ||
-// 		e.code === 'ArrowRight'
-// 	) {
-// 		movement(mesh, e.code);
-// 	}
+const keyDown = (e: { code: string }) => {
+	if (
+		e.code === 'ArrowUp' ||
+		e.code === 'ArrowDown' ||
+		e.code === 'ArrowLeft' ||
+		e.code === 'ArrowRight'
+	) {
+		// movement(mesh, e.code);
+		logKey(e.code);
+		let arrowCode = e.code;
+		let y: number = mesh.position.y,
+			x: number = mesh.position.x;
+		if (arrowCode === 'ArrowUp') {
+			y = y + 0.01;
+		}
+		if (arrowCode === 'ArrowDown') {
+			y = y - 0.01;
+		}
+		if (arrowCode === 'ArrowLeft') {
+			x = x - 0.01;
+		}
+		if (arrowCode === 'ArrowRight') {
+			x = x + 0.01;
+		}
+		mesh.position.y = y;
+		mesh.position.x = x;
+		console.log(mesh.position.y, mesh.position.x);
+		renderer.render(scene, camera);
+	}
 
-// 	function logKey(key: string): void {
-// 		console.log(key);
-// 	}
-// 	return;
-// };
+	function logKey(key: string): void {
+		console.log(key);
+	}
+	return;
+};
 
 // // const newPlayer = document.createElement('div');
 // // newPlayer.classList.add('player');
@@ -119,7 +140,7 @@ function animation(time: number) {
 // // 	}
 // // }
 
-// document.addEventListener('keydown', keyDown, false);
+document.addEventListener('keydown', keyDown, false);
 // window.addEventListener('load', () => {
 // 	// makeSquares();
 // });
