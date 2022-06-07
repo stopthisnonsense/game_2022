@@ -12,15 +12,20 @@ const camera = new THREE.PerspectiveCamera(
 	0.01,
 	10
 );
-camera.position.z = 1;
+camera.position.z = 5;
 
 const scene = new THREE.Scene();
 
 const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
 const material = new THREE.MeshNormalMaterial();
 
-const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+const block = new THREE.BoxGeometry(3, 3, 0.2);
+const planet = new THREE.Mesh(block, material);
+scene.add(planet);
+
+const player = new THREE.Mesh(geometry, material);
+player.position.z = 1;
+scene.add(player);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -31,7 +36,7 @@ document.body.appendChild(renderer.domElement);
 
 function animation(time: number) {
 	// console.log(time);
-	mesh.rotation.x = time / 2000;
+	player.rotation.x = time / 2000;
 	// mesh.rotation.y = time / 1000;
 	// mesh.position.x = time / 1000;
 	// keyDown(e);
@@ -46,25 +51,27 @@ const keyDown = (e: { code: string }) => {
 		e.code === 'ArrowRight'
 	) {
 		// movement(mesh, e.code);
-		logKey(e.code);
+		// logKey(e.code);
 		let arrowCode = e.code;
-		let y: number = mesh.position.y,
-			x: number = mesh.position.x;
+		let y: number = player.position.y,
+			x: number = player.position.x;
 		if (arrowCode === 'ArrowUp') {
-			y = y + 0.01;
+			y = y + 0.05;
 		}
 		if (arrowCode === 'ArrowDown') {
-			y = y - 0.01;
+			y = y - 0.05;
 		}
 		if (arrowCode === 'ArrowLeft') {
-			x = x - 0.01;
+			x = x - 0.05;
 		}
 		if (arrowCode === 'ArrowRight') {
-			x = x + 0.01;
+			x = x + 0.05;
 		}
-		mesh.position.y = y;
-		mesh.position.x = x;
-		console.log(mesh.position.y, mesh.position.x);
+		player.position.y = y;
+		player.position.x = x;
+		camera.position.x = x - 0.01;
+		camera.position.y = y - 0.01;
+		// console.log(mesh.position.y, mesh.position.x);
 		renderer.render(scene, camera);
 	}
 
